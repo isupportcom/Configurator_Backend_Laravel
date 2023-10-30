@@ -20,6 +20,8 @@ class ProductsCardController extends ApiController
             'id' => ['required', 'integer'],
         ]);
 
+        FinalProduct::findOrFail($request->input('id'));
+
         $page = $request->input("page", 1);
         $limit = $request->input("limit", 10);
         $finalProductID = $request->input('id');
