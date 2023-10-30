@@ -60,7 +60,6 @@ class FinalProductController extends ApiController
      */ public function update(Request $request, string $id)
     {
         $finalProduct = FinalProduct::findOrFail($id);
-        var_dump($request->input);
         if ($request->has('name')) {
 
             $finalProduct->name = $request->input('name');
