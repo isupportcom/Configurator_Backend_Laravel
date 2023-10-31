@@ -2,49 +2,53 @@
 
 namespace App\Http\Controllers\ChoicesContent;
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Models\ChoicesContent;
 use Illuminate\Http\Request;
 
-class ChoicesContentController extends Controller
+class ChoicesContentController extends ApiController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'required|integer|exists:place_choices,id'
+        ]);
+
+        $page = $request->input('page', 1);
+        $limit = $request->input('limit', 10);
+
+        $skipAmount = ($page - 1) * $limit;
+
+        $choicesContent = ChoicesContent::skip($skipAmount)
+            ->take($limit)
+            ->where('place_choices_id', $request->input('id'))
+            ->get();
+
+        return $this->showAll($choicesContent);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'place_choice_id' => 'required|integer|exists:place_choices,id',
+            "image" => "required|mimes:jpeg,png,jpg,gif"
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $choicesContent = new ChoicesContent([
+            'cards_place_id' => $request->input('cards_place_id'),
+            'name' => $request->input('name'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $choicesContent->save();
+        return $this->showOne($choicesContent, 201);
     }
 
     /**
@@ -52,7 +56,11 @@ class ChoicesContentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $choiceContent = ChoicesContent::findOrFail($id);
+
+        if ($request->has('name')) {
+            $choiceContent->name = $request->name;
+        }
     }
 
     /**

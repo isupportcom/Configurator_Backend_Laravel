@@ -23,7 +23,12 @@ class FinalProductController extends ApiController
             ->take($limit)
             ->get();
 
-        return $this->showAll($finalProducts);
+        $finalProductsCount = FinalProduct::count();
+
+        return response([
+            'data'=> $finalProducts,
+            'count' => $finalProductsCount
+        ]);
     }
 
     /**
