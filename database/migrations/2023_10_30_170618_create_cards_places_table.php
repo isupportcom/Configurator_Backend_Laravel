@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cards_place', function (Blueprint $table) {
+        Schema::create('cards_places', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_card_id');
             $table->string('name', 255);
             $table->timestamps();
 
             // Define the foreign key relationship
-            $table->foreign('product_card_id')->references('id')->on('products_card')->onDelete('cascade');
+            $table->foreign('product_card_id')->references('id')->on('products_cards')->onDelete('cascade');
         });
     }
 

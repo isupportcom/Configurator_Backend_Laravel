@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products_card', function (Blueprint $table) {
+        Schema::create('products_cards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('final_product_id');
             $table->string('name', 255);
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Define the foreign key relationship
-            $table->foreign('final_product_id')->references('id')->on('final_product')->onDelete('cascade');
+            $table->foreign('final_product_id')->references('id')->on('final_products')->onDelete('cascade');
         });
     }
 

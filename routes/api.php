@@ -3,6 +3,7 @@
 use App\Http\Controllers\CardsPlace\CardsPlaceController;
 use App\Http\Controllers\ChoicesContent\ChoicesContentController;
 use App\Http\Controllers\FinalProduct\FinalProductController;
+use App\Http\Controllers\Icons\IconsController;
 use App\Http\Controllers\PlaceChoices\PlaceChoicesController;
 use App\Http\Controllers\ProductsCard\ProductsCardController;
 
@@ -24,3 +25,4 @@ Route::resource("products-card", ProductsCardController::class, ['only' => ['ind
 Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('choices-content', ChoicesContentController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('icons', IconsController::class, ['only' => 'index']);

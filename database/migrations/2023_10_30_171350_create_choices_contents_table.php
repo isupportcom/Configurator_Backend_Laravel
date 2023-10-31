@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('choices_images', function (Blueprint $table) {
+        Schema::create('choices_contents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('place_choice_id');
             $table->string('image', 255);

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Define the foreign key relationship
-            $table->foreign('card_place_id')->references('id')->on('cards_place')->onDelete('cascade');
+            $table->foreign('card_place_id')->references('id')->on('cards_places')->onDelete('cascade');
         });
     }
 
