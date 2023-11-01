@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardsPlace\CardsPlaceController;
 use App\Http\Controllers\ChoicesContent\ChoicesContentController;
 use App\Http\Controllers\FinalProduct\FinalProductController;
@@ -28,3 +29,5 @@ Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['ind
 Route::resource('choices-content', ChoicesContentController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
 Route::resource('icons', IconsController::class, ['only' => 'index']);
 Route::get('/images/{filename}', [ImagesController::class, 'show']);
+// User login
+Route::post('login', [AuthController::class,'login']);

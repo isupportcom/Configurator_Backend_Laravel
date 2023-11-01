@@ -8,6 +8,7 @@ use App\Models\ChoicesContent;
 use App\Models\FinalProduct;
 use App\Models\PlaceChoices;
 use App\Models\ProductsCard;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,10 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        FinalProduct::factory(10)->create();
-        ProductsCard::factory(10)->create();
-        CardsPlace::factory(10)->create();
-        PlaceChoices::factory(10)->create();
-        ChoicesContent::factory(10)->create();
+        User::factory(1)->create();
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class IconsController extends Controller
 {
+    // katerina ips sto timologio pagion
     public function index(Request $request)
     {
 
@@ -18,6 +19,23 @@ class IconsController extends Controller
 
         $iconsFile = storage_path("app/material-icons.json");
         $iconsNames = json_decode(File::get($iconsFile), true);
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $iconsNames = array_filter($iconsNames, function ($icon) use ($search) {
+                return strpos($icon, $search) !== false;
+            });
+            $iconsCount = count($iconsNames);
+
+            return response()->json([
+                "icons" => $iconsNames,
+                "count" => $iconsCount
+
+            ]);
+        }
+
+
+
         $iconsCount = count($iconsNames);
         $icons = array_slice($iconsNames, $skipAmount, $limit);
 

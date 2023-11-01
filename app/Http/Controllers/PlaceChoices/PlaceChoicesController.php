@@ -15,7 +15,7 @@ class PlaceChoicesController extends ApiController
     public function index(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:cards_place,id'
+            'id' => 'required|integer|exists:cards_places,id'
         ]);
 
         $page = $request->input('page', 1);
@@ -39,7 +39,7 @@ class PlaceChoicesController extends ApiController
     public function store(Request $request)
     {
         $request->validate([
-            'card_place_id' => 'required|integer|exists:cards_place,id',
+            'card_place_id' => 'required|integer|exists:cards_places,id',
             'name' => 'required|string|max:255',
         ]);
 
