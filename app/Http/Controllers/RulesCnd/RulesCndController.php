@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\RulesCnd;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
 use App\Models\CardsPlace;
 use App\Models\FinalProduct;
 use App\Models\PlaceChoices;
@@ -56,9 +55,28 @@ class RulesCndController extends ApiController
      */
     public function update(Request $request, string $id)
     {
-
+        $request->validate([
+            're' => 'boolean|in:0,1',
+            'sosourcec' => 'in:1000,2000,3000,4000',
+        ]);
         $ruleCnd = Rulescnd::findOrFail($id);
 
+        if ($request->has('re')) {
+
+            $ruleCnd->re = $request->input('re');
+        }
+
+        if ($request->has('sosourcec')) {
+            $ruleCnd->sosourcec = $request->input('sosourcec');
+        }
+
+        if ($request->has('idc')) {
+            $this->checkSosourceId($ruleCnd->sosourcec, $request->input('idc'));
+            $ruleCnd->idc = $request->input('idc');
+        }
+
+        $ruleCnd->save();
+        return $this->showOne($ruleCnd, 200);
     }
 
     /**
@@ -66,7 +84,9 @@ class RulesCndController extends ApiController
      */
     public function destroy(string $id)
     {
-        //
+        $ruleCnd = Rulescnd::findOrFail($id);
+        $ruleCnd->delete();
+        return $this->showOne($ruleCnd, 200);
     }
 
     protected function checkSosourceId(int $sosource, int $id)
