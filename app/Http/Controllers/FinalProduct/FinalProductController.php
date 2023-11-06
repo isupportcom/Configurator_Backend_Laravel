@@ -4,11 +4,19 @@ namespace App\Http\Controllers\FinalProduct;
 
 use App\Http\Controllers\ApiController;
 use App\Models\FinalProduct;
+use App\Service\DeleteRulesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class FinalProductController extends ApiController
 {
+
+    protected $rulesService;
+
+    public function __construct(DeleteRulesService $rulesService)
+    {
+        $this->rulesService = $rulesService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -26,7 +34,7 @@ class FinalProductController extends ApiController
         $finalProductsCount = FinalProduct::count();
 
         return response([
-            'data'=> $finalProducts,
+            'data' => $finalProducts,
             'count' => $finalProductsCount
         ]);
     }
@@ -106,6 +114,11 @@ class FinalProductController extends ApiController
     public function destroy(string $id)
     {
         $finalProduct = FinalProduct::findOrFail($id);
+        $imagePath = public_path('image') . '/' . $finalProduct->image;
+        $this->rulesService->deleteRules($id, 1000);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
         $finalProduct->delete();
         return $this->showOne($finalProduct);
     }

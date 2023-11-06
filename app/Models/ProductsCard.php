@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Rules;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ class ProductsCard extends Model
     protected $fillable = [
         "name",
         "icon",
+        "tab_order",
         "final_product_id"
     ];
 

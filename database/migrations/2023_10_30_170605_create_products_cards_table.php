@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('final_product_id');
             $table->string('name', 255);
             $table->string('icon', 255);
+            $table->integer('tab_order',false,true)->default(0);
             $table->timestamps();
 
             // Define the foreign key relationship

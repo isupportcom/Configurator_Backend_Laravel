@@ -6,10 +6,20 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\CardsPlace;
 use App\Models\ProductsCard;
+use App\Service\DeleteRulesService;
 use Illuminate\Http\Request;
 
 class CardsPlaceController extends ApiController
 {
+
+    protected $ruleService;
+
+
+    public function __construct(DeleteRulesService $rulesService)
+    {
+        $this->ruleService = $rulesService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -74,6 +84,7 @@ class CardsPlaceController extends ApiController
     public function destroy(string $id)
     {
         $cardPlace = CardsPlace::findOrFail($id);
+        $this->ruleService->deleteRules($id, 3000);
         $cardPlace->delete();
         return $this->showOne($cardPlace, 200);
     }

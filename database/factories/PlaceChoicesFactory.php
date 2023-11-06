@@ -17,6 +17,7 @@ class PlaceChoicesFactory extends Factory
             'card_place_id' => function () {
                 return CardsPlace::inRandomOrder()->first()->id;
             },
+            'image' => $this->faker->imageUrl(255, 255),
             'name' => $this->faker->word,
             'created_at' => now(),
             'updated_at' => now(),

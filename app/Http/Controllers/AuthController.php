@@ -16,9 +16,20 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('name', 'password'))) {
             $user = Auth::user();
+
+            // Generate and retrieve the token
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return response()->json(['token' => $token, 'user' => $user], 200);
+            // Create a custom response structure
+            $response = [
+                "id" => $user->id,
+                "name" => $user->name,
+                "created_at" => $user->created_at,
+                "updated_at" => $user->updated_at,
+                "token" => $token,
+            ];
+
+            return response()->json($response, 200);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);

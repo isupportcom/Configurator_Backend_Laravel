@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Rules;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,4 +20,6 @@ class FinalProduct extends Model
     {
         return $this->hasMany(ProductsCard::class);
     }
+
+
 }

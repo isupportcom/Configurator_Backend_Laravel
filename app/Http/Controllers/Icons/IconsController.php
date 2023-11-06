@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 
 class IconsController extends Controller
 {
-    // katerina ips sto timologio pagion
     public function index(Request $request)
     {
-
         $page = $request->input("page", 1);
         $limit = $request->input("limit", 10);
 
@@ -20,28 +18,29 @@ class IconsController extends Controller
         $iconsFile = storage_path("app/material-icons.json");
         $iconsNames = json_decode(File::get($iconsFile), true);
 
+        $response = [
+            "icons" => [],
+            "count" => 0,
+        ];
+
         if ($request->has('search')) {
             $search = $request->input('search');
-            $iconsNames = array_filter($iconsNames, function ($icon) use ($search) {
-                return strpos($icon, $search) !== false;
+
+            // Filter the icons containing the search string
+            $filteredIcons = array_filter($iconsNames, function ($icon) use ($search) {
+                if (is_array($icon) && isset($icon['name']) && is_string($icon['name'])) {
+                    return strpos($icon['name'], $search) !== false;
+                }
+                return false;
             });
-            $iconsCount = count($iconsNames);
 
-            return response()->json([
-                "icons" => $iconsNames,
-                "count" => $iconsCount
-
-            ]);
+            $response["icons"] = array_values($filteredIcons); // Re-index the array
+            $response["count"] = count($response["icons"]);
+        } else {
+            $response["icons"] = array_slice($iconsNames, $skipAmount, $limit);
+            $response["count"] = count($iconsNames);
         }
 
-
-
-        $iconsCount = count($iconsNames);
-        $icons = array_slice($iconsNames, $skipAmount, $limit);
-
-        return response()->json([
-            "icons" => $icons,
-            "count" => $iconsCount
-        ]);
+        return response()->json($response);
     }
 }

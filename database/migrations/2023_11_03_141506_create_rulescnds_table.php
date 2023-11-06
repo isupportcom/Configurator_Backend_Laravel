@@ -9,23 +9,26 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('choices_contents', function (Blueprint $table) {
+        Schema::create('rulescnds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('place_choice_id');
-            $table->string('image', 255);
+            $table->unsignedBigInteger('idr');
+            $table->boolean('re');
+            $table->integer('sosourcer');
+            $table->integer('idc');
             $table->timestamps();
 
             // Define the foreign key relationship
-            $table->foreign('place_choice_id')->references('id')->on('place_choices')->onDelete('cascade');
+            $table->foreign('idr')->references('id')->on('rules')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('choices_contents');
+        Schema::dropIfExists('rulescnds');
     }
 };

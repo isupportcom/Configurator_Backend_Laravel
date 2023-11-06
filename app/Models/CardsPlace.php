@@ -18,4 +18,5 @@ class CardsPlace extends Model
     {
         return $this->hasMany(PlaceChoices::class);
     }
+
 }
