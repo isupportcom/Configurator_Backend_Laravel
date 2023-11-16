@@ -15,8 +15,7 @@ class PlaceChoicesController extends ApiController
 
     public function __construct(DeleteRulesService $rulesService)
     {
-            $this->rulesService = $rulesService;
-
+        $this->rulesService = $rulesService;
     }
 
     /**
@@ -42,6 +41,11 @@ class PlaceChoicesController extends ApiController
     }
 
 
+    public function show(string $id)
+    {
+        $placeChoice = PlaceChoices::findOrFail($id);
+        return $this->showOne($placeChoice);
+    }
 
     /**
      * Store a newly created resource in storage.

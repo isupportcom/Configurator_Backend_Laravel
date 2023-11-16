@@ -45,6 +45,12 @@ class CardsPlaceController extends ApiController
     }
 
 
+    public function show(string $id)
+    {
+        $cardPlace = CardsPlace::findOrFail($id);
+        return $this->showOne($cardPlace);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

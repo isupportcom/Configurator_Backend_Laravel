@@ -57,7 +57,7 @@ class RulesCndController extends ApiController
     {
         $request->validate([
             're' => 'boolean|in:0,1',
-            'sosourcec' => 'in:1000,2000,3000,4000',
+            'sosourcer' => 'in:1000,2000,3000,4000',
         ]);
         $ruleCnd = Rulescnd::findOrFail($id);
 
@@ -66,12 +66,12 @@ class RulesCndController extends ApiController
             $ruleCnd->re = $request->input('re');
         }
 
-        if ($request->has('sosourcec')) {
-            $ruleCnd->sosourcec = $request->input('sosourcec');
+        if ($request->has('sosourcer')) {
+            $ruleCnd->sosourcer = $request->input('sosourcer');
         }
 
         if ($request->has('idc')) {
-            $this->checkSosourceId($ruleCnd->sosourcec, $request->input('idc'));
+            $this->checkSosourceId($ruleCnd->sosourcer, $request->input('idc'));
             $ruleCnd->idc = $request->input('idc');
         }
 

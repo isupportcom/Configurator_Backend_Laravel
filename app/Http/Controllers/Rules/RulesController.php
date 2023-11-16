@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Rules;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
 use App\Models\Rules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RulesController extends ApiController
 {
@@ -13,10 +13,14 @@ class RulesController extends ApiController
     public function index(Request $request)
     {
         $request->validate([
-            'soscource' => 'required|integer|in:1000,2000,3000,4000'
+            'sosource' => 'integer|in:1000,2000,3000,4000'
         ]);
-
-        $rules = Rules::where('sosource', $request->input('sosource'))->get();
+        if ($request->has('sosource')) {
+            $sosource = $request->input('sosource');
+            $rules = Rules::where('sosource', $sosource)->get();
+            return $this->showAll($rules);
+        }
+        $rules = Rules::all();
         return $this->showAll($rules);
     }
 
@@ -29,7 +33,6 @@ class RulesController extends ApiController
             'sosource' => 'required|in:1000,2000,3000,4000',
             "idslc" => "required|integer",
         ]);
-
         $rules = new Rules([
             "sosource" => $request->input('sosource'),
             "idslc" => $request->input('idslc'),

@@ -7,7 +7,9 @@ use App\Http\Controllers\Icons\IconsController;
 use App\Http\Controllers\Images\ImagesController;
 use App\Http\Controllers\PlaceChoices\PlaceChoicesController;
 use App\Http\Controllers\ProductsCard\ProductsCardController;
+use App\Http\Controllers\Rules\RulesCndController as RulesRulesCndController;
 use App\Http\Controllers\Rules\RulesController;
+use App\Http\Controllers\Rules\RulesItemController;
 use App\Http\Controllers\RulesCnd\RulesCndController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,14 +24,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("final_product", FinalProductController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
-Route::resource("products-card", ProductsCardController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
-Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
-Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource("final_product", FinalProductController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
+
+Route::resource("products-card", ProductsCardController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
+
+Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
+
+Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
+
 Route::resource('icons', IconsController::class, ['only' => 'index']);
-Route::resource('rules', RulesController::class, ['only' => ['store', 'show', 'destroy','index']]);
-Route::resource('rules-cnd', RulesCndController::class, ['except' => ['create', 'edit', 'index']]);
+
+Route::resource('rules', RulesController::class, ['only' => ['store', 'show', 'destroy', 'index']]);
+Route::resource('rules.items', RulesItemController::class, ['only' => ['index']]);
+Route::resource('rules.cnd', RulesRulesCndController::class, ['only' => ['index']]);
+
+Route::resource('rules-cnd', RulesCndController::class, ['except' => ['create', 'edit', 'index',]]);
+
 
 Route::get('/images/{filename}', [ImagesController::class, 'show']);
+Route::post('/images/logo',[ImagesController::class,'store']);
 // User login
 Route::post('login', [AuthController::class, 'login']);

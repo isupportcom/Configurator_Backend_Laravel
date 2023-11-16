@@ -39,6 +39,12 @@ class FinalProductController extends ApiController
         ]);
     }
 
+    public function show(string $id)
+    {
+        $finalProduct = FinalProduct::findOrFail($id);
+        return $this->showOne($finalProduct);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

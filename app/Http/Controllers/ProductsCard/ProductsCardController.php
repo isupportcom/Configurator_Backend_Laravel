@@ -43,6 +43,13 @@ class ProductsCardController extends ApiController
         return $this->showAll($productsCard);
         //
     }
+
+    public function show(string $id)
+    {
+        $productCard = ProductsCard::findOrFail($id);
+        return $this->showOne($productCard);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
