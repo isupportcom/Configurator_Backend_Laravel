@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardsPlace\CardsPlaceController;
+use App\Http\Controllers\Colors\ColorsController;
 use App\Http\Controllers\FinalProduct\FinalProductController;
 use App\Http\Controllers\Icons\IconsController;
 use App\Http\Controllers\Images\ImagesController;
@@ -40,8 +41,9 @@ Route::resource('rules.cnd', RulesRulesCndController::class, ['only' => ['index'
 
 Route::resource('rules-cnd', RulesCndController::class, ['except' => ['create', 'edit', 'index',]]);
 
+Route::resource('colors', ColorsController::class, ['except' => ['destroy,show', 'store']]);
 
 Route::get('/images/{filename}', [ImagesController::class, 'show']);
-Route::post('/images/logo',[ImagesController::class,'store']);
+Route::post('/images/logo', [ImagesController::class, 'store']);
 // User login
 Route::post('login', [AuthController::class, 'login']);
