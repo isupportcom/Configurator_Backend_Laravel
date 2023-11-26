@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
             return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
         }
 
-        if ($exception instanceof QueryException) {
+        if ($exception instanceof QueryException && !empty($exception->errorInfo) && count($exception->errorInfo) > 1) {
             $errorCode = $exception->errorInfo[1];
             if ($errorCode == 1451) {
                 return $this->errorResponse('Cannot remove this resource permanently. It is related with any other resource', 409);
