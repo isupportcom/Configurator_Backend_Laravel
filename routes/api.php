@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource("final_product", FinalProductController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
-
+Route::resource("final_product.products-cards", ProductsCardController::class, ['only' => 'index']);
 Route::resource("products-card", ProductsCardController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 
 Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);

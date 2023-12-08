@@ -27,7 +27,7 @@ trait ApiResponser
             return $this->successResponse(['data' => $collection], $code);
         }
 
-        $collection = $this->cacheResponse($collection);
+        // $collection = $this->cacheResponse($collection);
         return $this->successResponse(['data' => $collection], $code);
     }
 

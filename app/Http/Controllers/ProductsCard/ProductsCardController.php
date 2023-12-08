@@ -20,27 +20,27 @@ class ProductsCardController extends ApiController
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(FinalProduct $final_product)
     {
 
-        $request->validate([
-            'id' => ['required', 'integer'],
-        ]);
+        $productsCard = $final_product->card()->get();
 
-        FinalProduct::findOrFail($request->input('id'));
-
-        $page = $request->input("page", 1);
-        $limit = $request->input("limit", 10);
-        $finalProductID = $request->input('id');
-
-        $skipAmount = ($page - 1) * $limit;
-
-        $productsCard = ProductsCard::skip($skipAmount)
-            ->take($limit)
-            ->where('final_product_id', $finalProductID)
-            ->orderBy('tab_order', 'asc')
-            ->get();
         return $this->showAll($productsCard);
+
+
+
+        // $page = $request->input("page", 1);
+        // $limit = $request->input("limit", 10);
+        // $finalProductID = $request->input('id');
+
+        // $skipAmount = ($page - 1) * $limit;
+
+        // $productsCard = ProductsCard::skip($skipAmount)
+        //     ->take($limit)
+        //     ->where('final_product_id', $finalProductID)
+        //     ->orderBy('tab_order', 'asc')
+        //     ->get();
+        // return $this->showAll($productsCard);
         //
     }
 

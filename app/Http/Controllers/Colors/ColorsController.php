@@ -40,7 +40,7 @@ class ColorsController extends ApiController
         }
 
         if ($color->isClean()) {
-            return $this->errorResponse('You Need To Specify a different value to update', 422);
+            $this->errorResponse('You Need To Provide Different Values To Update', 422);
         }
 
         $color->save();
