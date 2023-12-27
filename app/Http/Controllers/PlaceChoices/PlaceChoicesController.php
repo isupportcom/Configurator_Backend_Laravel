@@ -90,13 +90,13 @@ class PlaceChoicesController extends ApiController
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-
+            // moutoudis
             // Delete the previous image
             $oldImagePath = public_path('image') . '/' . $palceChoice->image;
             if (File::exists($oldImagePath)) {
                 File::delete($oldImagePath);
             }
-
+            $palceChoice->image  = $imageName;
             // Move the new image to the public directory
             $image->move(public_path('image'), $imageName);
         }

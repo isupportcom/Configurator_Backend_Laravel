@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FinalProduct;
 
+use App\Events\FinalProductCreated;
 use App\Http\Controllers\ApiController;
 use App\Models\FinalProduct;
 use App\Service\DeleteRulesService;
@@ -72,6 +73,7 @@ class FinalProductController extends ApiController
         ]);
 
         $finalProduct->save();
+
         return $this->showOne($finalProduct, 201);
     }
     /**

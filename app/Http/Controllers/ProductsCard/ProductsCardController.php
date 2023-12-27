@@ -22,26 +22,8 @@ class ProductsCardController extends ApiController
      */
     public function index(FinalProduct $final_product)
     {
-
         $productsCard = $final_product->card()->get();
-
         return $this->showAll($productsCard);
-
-
-
-        // $page = $request->input("page", 1);
-        // $limit = $request->input("limit", 10);
-        // $finalProductID = $request->input('id');
-
-        // $skipAmount = ($page - 1) * $limit;
-
-        // $productsCard = ProductsCard::skip($skipAmount)
-        //     ->take($limit)
-        //     ->where('final_product_id', $finalProductID)
-        //     ->orderBy('tab_order', 'asc')
-        //     ->get();
-        // return $this->showAll($productsCard);
-        //
     }
 
     public function show(string $id)
