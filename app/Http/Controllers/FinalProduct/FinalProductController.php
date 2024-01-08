@@ -105,13 +105,13 @@ class FinalProductController extends ApiController
             $finalProduct->image = $imageName;
         }
 
-        if (!$finalProduct->isDirty()) {
+        if ($finalProduct->isClean()) {
             return $this->errorResponse('You need to specify a different value to update', 422);
         }
 
 
         $finalProduct->save();
-
+        sleep(3);
         return $this->showOne($finalProduct);
     }
 

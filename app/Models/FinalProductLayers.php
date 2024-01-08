@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\LayerCreated;
+use App\Events\LayerUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PO;
@@ -23,6 +25,20 @@ class FinalProductLayers extends Model
 
     public function imageOuput()
     {
-        return $this->hasOne(ImagesOutput::class);
+        return $this->hasMany(ImagesOutput::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($finalProductLayer) {
+            event(new LayerCreated($finalProductLayer));
+        });
+
+
+        static::updated(function ($finalProductLayer) {
+            event(new LayerUpdated($finalProductLayer));
+        });
     }
 }

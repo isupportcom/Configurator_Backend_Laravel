@@ -81,6 +81,7 @@ class CardsPlaceController extends ApiController
             $cardPlace->name = $request->input('name');
         }
         $cardPlace->save();
+        sleep(2);
         return $this->showOne($cardPlace, 200);
     }
 

@@ -106,6 +106,7 @@ class PlaceChoicesController extends ApiController
         }
 
         $palceChoice->save();
+        sleep(2);
         return $this->showOne($palceChoice, 200);
     }
 

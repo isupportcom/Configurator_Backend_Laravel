@@ -19,7 +19,7 @@ class ImagesOuputController extends ApiController
     public function store(Request $request)
     {
         $request->validate([
-            "layer_id" => "required|integer|exists:final_product_layers,id",
+            "final_product_layers_id" => "required|integer|exists:final_product_layers,id",
             "image" => "required|mimes:jpeg,png,jpg,gif"
         ]);
 
@@ -33,7 +33,7 @@ class ImagesOuputController extends ApiController
         $image->move(public_path('image'), $imageName);
 
         $imageOutput = new ImagesOutput([
-            'layer_id' => $request->input('layer_id'),
+            'final_product_layers_id' => $request->input('final_product_layers_id'),
             'image' => $imageName
         ]);
 

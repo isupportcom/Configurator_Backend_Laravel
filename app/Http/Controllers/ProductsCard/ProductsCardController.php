@@ -109,6 +109,7 @@ class ProductsCardController extends ApiController
         }
 
         $productCard->save();
+        sleep(2);
         return $this->showOne($productCard, 200);
     }
 

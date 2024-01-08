@@ -13,7 +13,6 @@ class FinalProdutsLayersController extends ApiController
 
     public function show(FinalProductLayers $final_product_layer)
     {
-        Log::info('FinalProductLayers show method called', ['id' => $final_product_layer->id]);
         return $this->showOne($final_product_layer);
     }
 

@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Events\FinalProductCreated;
+use App\Events\LayerCreated;
+use App\Events\LayerUpdated;
 use App\Listeners\CreateFinalProductLayers;
+use App\Listeners\CreateImageOutput;
+use App\Listeners\UpdateImageOutput;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +28,12 @@ class EventServiceProvider extends ServiceProvider
         FinalProductCreated::class => [
             CreateFinalProductLayers::class
         ],
+        LayerCreated::class => [
+            CreateImageOutput::class
+        ],
+        LayerUpdated::class => [
+            UpdateImageOutput::class
+        ]
     ];
 
     /**
