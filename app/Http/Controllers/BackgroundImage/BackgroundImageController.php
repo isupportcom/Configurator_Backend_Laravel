@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\File;
 
 class BackgroundImageController extends ApiController
 {
-
-
-
-
-
     /**
      * Display the specified resource.
      */

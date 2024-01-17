@@ -20,7 +20,7 @@ class ImagesOuputController extends ApiController
     {
         $request->validate([
             "final_product_layers_id" => "required|integer|exists:final_product_layers,id",
-            "image" => "required|mimes:jpeg,png,jpg,gif"
+            "image" => "required|mimes:jpeg,png,jpg,gif,webp"
         ]);
 
         if (!$request->hasFile('image')) {

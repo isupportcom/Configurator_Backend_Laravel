@@ -56,7 +56,7 @@ Route::resource('final_product_layers.output', LayerImageOutputController::class
 
 Route::resource('images-output', ImagesOuputController::class, ['except' => 'index']);
 
-Route::resource('background_image', BackgroundImageController::class, ['only' => 'update', 'show']);
+Route::resource('background_image', BackgroundImageController::class, ['only' => ['update', 'show']]);
 
 Route::get('/images/{filename}', [ImagesController::class, 'show']);
 Route::post('/images/logo', [ImagesController::class, 'store']);

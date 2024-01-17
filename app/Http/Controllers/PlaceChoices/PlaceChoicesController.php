@@ -54,7 +54,7 @@ class PlaceChoicesController extends ApiController
     {
         $request->validate([
             'card_place_id' => 'required|integer|exists:cards_places,id',
-            "image" => "required|mimes:jpeg,png,jpg,gif",
+            "image" => "required|mimes:jpeg,png,jpg,gif,webp",
             "name" => "required|string"
         ]);
 
