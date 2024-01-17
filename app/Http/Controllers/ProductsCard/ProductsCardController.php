@@ -125,7 +125,6 @@ class ProductsCardController extends ApiController
                 $productCard->tab_order = $tabOrder;
             }
         }
-
         $productCard->save();
         return $this->showOne($productCard, 200);
     }
