@@ -54,7 +54,7 @@ class FinalProductController extends ApiController
         $request->validate([
             "name" => "required|string|max:255",
             "description" => "required|string",
-            "image" => "required|mimes:jpeg,png,jpg,gif"
+            "image" => "required|mimes:jpeg,png,jpg,gif,webp"
         ]);
         if (!$request->hasFile("image")) {
             return $this->errorResponse('No Image Provided', 422);

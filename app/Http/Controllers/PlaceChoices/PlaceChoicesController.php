@@ -32,9 +32,9 @@ class PlaceChoicesController extends ApiController
 
         $skipAmount = ($page - 1) * $limit;
         $placeChoices = PlaceChoices::skip($skipAmount)
-        ->take($limit)
-        ->where('card_place_id', $request->input('id'))
-        ->get(['id', 'card_place_id', 'image', 'name', 'layer_id']); // Include layer_id in the select
+            ->take($limit)
+            ->where('card_place_id', $request->input('id'))
+            ->get(['id', 'card_place_id', 'image', 'name', 'layer_id']); // Include layer_id in the select
         return $this->showAll($placeChoices);
     }
 
@@ -54,7 +54,6 @@ class PlaceChoicesController extends ApiController
             'card_place_id' => 'required|integer|exists:cards_places,id',
             "image" => "required|mimes:jpeg,png,jpg,gif,webp",
             "name" => "required|string",
-            'layer_id' => 'sometimes|integer|exists:layers,id'
         ]);
 
         if (!$request->hasFile('image')) {
@@ -110,7 +109,6 @@ class PlaceChoicesController extends ApiController
         }
 
         $placeChoice->save();
-        sleep(2);
         return $this->showOne($placeChoice, 200);
     }
 
