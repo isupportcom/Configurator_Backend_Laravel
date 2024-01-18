@@ -7,6 +7,8 @@ use App\Models\Rules;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\FinalProductLayers;
+use App\Models\ProductsCard;
+use App\Models\PlaceChoices;
 
 class FinalProduct extends Model
 {
@@ -36,6 +38,8 @@ class FinalProduct extends Model
     {
         return $this->hasOne(FinalProductLayers::class);
     }
+
+   
 
     public static function boot()
     {

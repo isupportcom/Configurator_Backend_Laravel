@@ -31,12 +31,10 @@ class PlaceChoicesController extends ApiController
         $limit = $request->input('limit', 10);
 
         $skipAmount = ($page - 1) * $limit;
-
         $placeChoices = PlaceChoices::skip($skipAmount)
-            ->take($limit)
-            ->where('card_place_id', $request->input('id'))
-            ->get();
-
+        ->take($limit)
+        ->where('card_place_id', $request->input('id'))
+        ->get(['id', 'card_place_id', 'image', 'name', 'layer_id']); // Include layer_id in the select
         return $this->showAll($placeChoices);
     }
 
@@ -55,7 +53,8 @@ class PlaceChoicesController extends ApiController
         $request->validate([
             'card_place_id' => 'required|integer|exists:cards_places,id',
             "image" => "required|mimes:jpeg,png,jpg,gif,webp",
-            "name" => "required|string"
+            "name" => "required|string",
+            'layer_id' => 'sometimes|integer|exists:layers,id'
         ]);
 
         if (!$request->hasFile('image')) {
@@ -70,7 +69,8 @@ class PlaceChoicesController extends ApiController
         $placeChoice = new PlaceChoices([
             'card_place_id' => $request->input('card_place_id'),
             'image' => $imageName,
-            "name" => $request->input('name')
+            'name' => $request->input('name'),
+            'layer_id' => $request->input('layer_id') // Add this line
         ]);
 
 
@@ -85,29 +85,33 @@ class PlaceChoicesController extends ApiController
      */
     public function update(Request $request, string $id)
     {
-        $palceChoice = PlaceChoices::findOrFail($id);
+        $placeChoice = PlaceChoices::findOrFail($id);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             // moutoudis
             // Delete the previous image
-            $oldImagePath = public_path('image') . '/' . $palceChoice->image;
+            $oldImagePath = public_path('image') . '/' . $placeChoice->image;
             if (File::exists($oldImagePath)) {
                 File::delete($oldImagePath);
             }
-            $palceChoice->image  = $imageName;
+            $placeChoice->image  = $imageName;
             // Move the new image to the public directory
             $image->move(public_path('image'), $imageName);
         }
 
         if ($request->has('name')) {
-            $palceChoice->name = $request->input('name');
+            $placeChoice->name = $request->input('name');
         }
 
-        $palceChoice->save();
+        if ($request->has('layer_id')) {
+            $placeChoice->layer_id = $request->input('layer_id');
+        }
+
+        $placeChoice->save();
         sleep(2);
-        return $this->showOne($palceChoice, 200);
+        return $this->showOne($placeChoice, 200);
     }
 
     /**

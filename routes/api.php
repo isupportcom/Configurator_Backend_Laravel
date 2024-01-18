@@ -6,6 +6,7 @@ use App\Http\Controllers\CardsPlace\CardsPlaceController;
 use App\Http\Controllers\Colors\ColorsController;
 use App\Http\Controllers\FinalProduct\FinalProductController;
 use App\Http\Controllers\FinalProduct\FinalProductsLayersController;
+use App\Http\Controllers\FinalProduct\FinalProductCategoryContentController;
 use App\Http\Controllers\Icons\IconsController;
 use App\Http\Controllers\Images\ImagesController;
 use App\Http\Controllers\PlaceChoices\PlaceChoicesController;
@@ -34,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource("final_product", FinalProductController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 Route::resource("final_product.products-cards", ProductsCardController::class, ['only' => 'index']);
 Route::resource('final_product.layers', FinalProductsLayersController::class, ['only' => 'index']);
-
+Route::resource('final_product.category_content',FinalProductCategoryContentController::class, ['only' => 'index']);
 Route::resource("products-card", ProductsCardController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 
 Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
