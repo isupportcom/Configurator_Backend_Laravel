@@ -12,9 +12,22 @@ class PlaceChoices extends Model
     protected $fillable = [
         'card_place_id',
         'image',
-        'name'
+        'name',
+        'layer_id'
     ];
 
+
+    public function cardPlace()
+    {
+        return $this->belongsTo(CardsPlace::class);
+    }
+
+
+    
+    public function layer()
+    {
+        return $this->belongsTo(FinalProductLayers::class, 'layer_id');
+    }
 
 
 }

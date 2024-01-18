@@ -18,7 +18,7 @@ class ScrapMaterialIcons extends Command
 
     public function handle()
     {
-        $response = Http::get('https://jossef.github.io/material-design-icons-iconfont/');
+        $response = Http::get('http://jossef.github.io/material-design-icons-iconfont/');
 
         if ($response->successful()) {
             $html = $response->body();

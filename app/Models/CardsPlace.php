@@ -16,7 +16,10 @@ class CardsPlace extends Model
 
     public function choices()
     {
-        return $this->hasMany(PlaceChoices::class);
+        return $this->hasMany(PlaceChoices::class,'card_place_id');
     }
-
+    public function card()
+    {
+        return $this->belongsTo(ProductsCard::class);
+    }
 }

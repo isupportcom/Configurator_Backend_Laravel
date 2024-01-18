@@ -19,6 +19,11 @@ class ProductsCard extends Model
 
     public function places()
     {
-        return $this->hasMany(CardsPlace::class);
+        return $this->hasMany(CardsPlace::class,'product_card_id');
+    }
+    
+    public function finalProduct()
+    {
+        return $this->belongsTo(FinalProduct::class);
     }
 }
