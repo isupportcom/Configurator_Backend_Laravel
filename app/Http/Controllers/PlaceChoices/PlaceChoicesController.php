@@ -106,8 +106,6 @@ class PlaceChoicesController extends ApiController
 
         if ($request->has('layer_id')) {
             $layerId = $request->input('layer_id');
-
-            // Check if any other instance has the same 'layer_id'
             $previousPlaceChoice = PlaceChoices::where('layer_id', $layerId)
                 ->where('id', '!=', $placeChoice->id)
                 ->first();
@@ -120,6 +118,8 @@ class PlaceChoicesController extends ApiController
             $placeChoice->layer_id = $request->input('layer_id');
         }
 
+        // anastasia apo metron tax 6989117339
+        // spacewest
         $placeChoice->save();
         return $this->showOne($placeChoice, 200);
     }
