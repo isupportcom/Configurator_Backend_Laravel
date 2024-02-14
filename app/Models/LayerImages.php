@@ -5,27 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlaceChoices extends Model
+class LayerImages extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'card_place_id',
         'image',
-        'name',
-        "layer_id",
-        'layer_image'
+        'layer_id',
+        'unique_layer_id'
     ];
 
+    
+    public function UniqueLayers()
+    {
+        return $this->belongsTo(Layer::class, 'unique_layer_id');
+    }
+
+
+    public function layers()
+    {
+        return $this->belongsTo(FinalProductLayers::class);
+    }
 
     public function cardPlace()
     {
         return $this->belongsTo(CardsPlace::class);
     }
-
-
-    
-    
 
 
 }

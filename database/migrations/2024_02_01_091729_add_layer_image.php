@@ -9,20 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        if (!Schema::hasColumn('place_choices', 'layer_id')) {
-            Schema::table('place_choices', function (Blueprint $table) {
+        if (!Schema::hasColumn('cards_places', 'layer_id')) {
+            Schema::table('cards_places', function (Blueprint $table) {
                 $table->unsignedBigInteger('layer_id')->nullable()->after('name');
                 $table->foreign('layer_id')->references('id')->on('final_product_layers'); // Adjust the table name if needed
             });
         }
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        if (Schema::hasColumn('place_choices', 'layer_id')) {
-            Schema::table('place_choices', function (Blueprint $table) {
+       if (Schema::hasColumn('cards_places', 'layer_id')) {
+            Schema::table('cards_places', function (Blueprint $table) {
                 $table->dropForeign(['layer_id']);
                 $table->dropColumn('layer_id');
             });

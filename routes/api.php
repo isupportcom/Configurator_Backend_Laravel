@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackgroundImage\BackgroundImageController;
 use App\Http\Controllers\CardsPlace\CardsPlaceController;
+use App\Http\Controllers\CardsPlace\CardsPlaceLayerImage;
 use App\Http\Controllers\Colors\ColorsController;
 use App\Http\Controllers\FinalProduct\FinalProductController;
 use App\Http\Controllers\FinalProduct\FinalProductsLayersController;
@@ -18,7 +19,8 @@ use App\Http\Controllers\RulesCnd\RulesCndController;
 use App\Http\Controllers\FinalProductLayers\FinalProdutsLayersController;
 use App\Http\Controllers\FinalProductLayers\LayerImageOutputController;
 use App\Http\Controllers\ImagesOuput\ImagesOuputController;
-use App\Models\FinalProductLayers;
+use App\Http\Controllers\LayerEntity\LayerEntityController;
+use App\Http\Controllers\LayerImages\LayerImagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +41,7 @@ Route::resource('final_product.category_content',FinalProductCategoryContentCont
 Route::resource("products-card", ProductsCardController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 
 Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
-
+Route::resource("card-place.layer_images",CardsPlaceLayerImage::class,['only'=>['index']]);
 Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 
 Route::resource('icons', IconsController::class, ['only' => 'index']);
@@ -52,12 +54,18 @@ Route::resource('rules-cnd', RulesCndController::class, ['except' => ['create', 
 
 Route::resource('colors', ColorsController::class, ['except' => ['destroy,show', 'store']]);
 
-Route::resource('final_product_layers', FinalProdutsLayersController::class, ['only' => ['show', 'update']]);
+Route::resource('final_product_layers', FinalProdutsLayersController::class, ['only' => ['index', 'show', 'update']]);
 Route::resource('final_product_layers.output', LayerImageOutputController::class, ['only' => ['index']]);
+Route::resource('layer_images', LayerImagesController::class, ['except'=>'update']);
 
+Route::resource('layer_entities', LayerEntityController::class, ['only' => ['store','index','show', 'destroy', 'update']]);
 Route::resource('images-output', ImagesOuputController::class, ['except' => 'index']);
 
+
 Route::resource('background_image', BackgroundImageController::class, ['only' => ['update', 'show']]);
+
+
+
 
 Route::get('/images/{filename}', [ImagesController::class, 'show']);
 Route::post('/images/logo', [ImagesController::class, 'store']);

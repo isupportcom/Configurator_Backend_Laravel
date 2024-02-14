@@ -42,6 +42,7 @@ class BackgroundImageController extends ApiController
         // }
 
 
+
         $backgroundImage->save();
         return $this->showOne($backgroundImage);
     }

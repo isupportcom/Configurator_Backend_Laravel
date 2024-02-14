@@ -14,9 +14,19 @@ class FinalProductLayers extends Model
 
     protected $fillable = [
         'final_product_id',
-        'layers'
+        'layers',
+        'layer_id'
     ];
 
+    public function layers()
+    {
+        return $this->hasMany(Layer::class, 'final_product_layer_id');
+    }
+
+    public function layerImages()
+    {
+        return $this->hasMany(LayerImages::class);
+    }
 
     public function final_product()
     {
