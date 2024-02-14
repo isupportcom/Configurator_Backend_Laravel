@@ -105,9 +105,21 @@ class PlaceChoicesController extends ApiController
         }
 
         if ($request->has('layer_id')) {
+            $layerId = $request->input('layer_id');
+            $previousPlaceChoice = PlaceChoices::where('layer_id', $layerId)
+                ->where('id', '!=', $placeChoice->id)
+                ->first();
+
+            if (!empty($previousPlaceChoice)) {
+                $previousPlaceChoice->layer_id = null;
+                $previousPlaceChoice->save();
+            }
+
             $placeChoice->layer_id = $request->input('layer_id');
         }
 
+        // anastasia apo metron tax 6989117339
+        // spacewest
         $placeChoice->save();
         return $this->showOne($placeChoice, 200);
     }

@@ -11,7 +11,8 @@ class CardsPlace extends Model
 
     protected $fillable = [
         "name",
-        "product_card_id"
+        "product_card_id",
+        "layer_id"
     ];
 
     public function choices()
@@ -22,4 +23,9 @@ class CardsPlace extends Model
     {
         return $this->belongsTo(ProductsCard::class);
     }
+    public function layers()
+    {
+        return $this->hasMany(LayerImages::class,'card_place_id');
+    }
+
 }

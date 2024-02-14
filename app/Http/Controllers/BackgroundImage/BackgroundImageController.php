@@ -38,9 +38,7 @@ class BackgroundImageController extends ApiController
         }
 
 
-        if ($backgroundImage->isClean()) {
-            return $this->errorResponse('You need to specify a different value to update', 422);
-        }
+
 
         $backgroundImage->save();
         return $this->showOne($backgroundImage);

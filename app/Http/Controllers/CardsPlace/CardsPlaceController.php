@@ -39,7 +39,7 @@ class CardsPlaceController extends ApiController
         $cardsPlace = CardsPlace::skip($skipAmount)
             ->take($limit)
             ->where('product_card_id', $productCardId)
-            ->get();
+            ->get(['id', 'name', 'layer_id']);
 
         return $this->showAll($cardsPlace);
     }
@@ -61,9 +61,12 @@ class CardsPlaceController extends ApiController
             'product_card_id' => 'integer|required'
         ]);
         ProductsCard::findOrFail($request->input('product_card_id'));
+
+
         $cardPlace = CardsPlace::create([
             'name' => $request->input('name'),
-            'product_card_id' => $request->input('product_card_id')
+            'product_card_id' => $request->input('product_card_id'),
+            'layer_id' => $request->input('layer_id') 
         ]);
         return $this->showOne($cardPlace, 201);
     }
@@ -80,6 +83,21 @@ class CardsPlaceController extends ApiController
         if ($request->has('name')) {
             $cardPlace->name = $request->input('name');
         }
+
+        if ($request->has('layer_id')) {
+            $layerId = $request->input('layer_id');
+            $previousCardPlace = CardsPlace::where('layer_id', $layerId)
+                ->where('id', '!=', $cardPlace->id)
+                ->first();
+
+            if (!empty($previousCardPlace)) {
+                $previousCardPlace->layer_id = null;
+                $previousCardPlace->save();
+            }
+
+            $cardPlace->layer_id = $request->input('layer_id');
+        }
+
         $cardPlace->save();
         sleep(2);
         return $this->showOne($cardPlace, 200);

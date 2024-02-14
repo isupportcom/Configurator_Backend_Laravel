@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('card_place_id');
             $table->string('image', 255);
-            $table->string('name', 255);
+            $table->string('name', 255); 
             $table->timestamps();
 
             // Define the foreign key relationship
