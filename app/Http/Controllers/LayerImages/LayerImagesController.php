@@ -17,9 +17,9 @@ class LayerImagesController extends ApiController
 {
     $layerImagesQuery = LayerImages::query(); // Start with a query builder
 
-    if ($request->has('layer_id')) {
-        $layer_id = $request->input('layer_id');
-        $layerImagesQuery = $layerImagesQuery->where('layer_id', $layer_id);
+    if ($request->has('unique_layer_id')) {
+        $layer_id = $request->input('unique_layer_id');
+        $layerImagesQuery = $layerImagesQuery->where('unique_layer_id', $layer_id);
     }
 
     $layerImages = $layerImagesQuery->get(['id', 'image', 'layer_id', 'unique_layer_id']);

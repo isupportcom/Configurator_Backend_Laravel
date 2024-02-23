@@ -14,12 +14,24 @@ class Layer extends Model
         'final_product_layer_id'
     ];
 
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        $array['image-configs'] = $this->imageConfigs;
+        return $array;
+    }
+
    // In Layer model
 public function finalProductLayer()
 {
     return $this->belongsTo(FinalProductLayers::class, 'final_product_layer_id');
 }
 
+
+    public function imageConfigs(){
+        return $this->hasMany(ImageConfig::class, 'layer_id');
+    }
 
     public function layers()
     {

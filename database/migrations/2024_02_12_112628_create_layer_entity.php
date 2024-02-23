@@ -20,9 +20,6 @@ return new class extends Migration
 
             // You may need to add a foreign key constraint for unique_layer_id if it references another table
             $table->foreign('unique_layer_id')->references('id')->on('layers');
-
-            // If place_choices is a table that cat_cons reference, you might need to create a pivot table instead
-            // because cat_cons is an array and can't directly reference another table
         });
     }
 

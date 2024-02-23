@@ -18,9 +18,11 @@ use App\Http\Controllers\Rules\RulesItemController;
 use App\Http\Controllers\RulesCnd\RulesCndController;
 use App\Http\Controllers\FinalProductLayers\FinalProdutsLayersController;
 use App\Http\Controllers\FinalProductLayers\LayerImageOutputController;
+use App\Http\Controllers\ImageConfiguration\ImageConfigurationController;
 use App\Http\Controllers\ImagesOuput\ImagesOuputController;
 use App\Http\Controllers\LayerEntity\LayerEntityController;
 use App\Http\Controllers\LayerImages\LayerImagesController;
+use App\Http\Controllers\DefaultSelections\DefaultSelectionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,9 +59,10 @@ Route::resource('colors', ColorsController::class, ['except' => ['destroy,show',
 Route::resource('final_product_layers', FinalProdutsLayersController::class, ['only' => ['index', 'show', 'update']]);
 Route::resource('final_product_layers.output', LayerImageOutputController::class, ['only' => ['index']]);
 Route::resource('layer_images', LayerImagesController::class, ['except'=>'update']);
-
+Route::resource('image-config', ImageConfigurationController::class);
 Route::resource('layer_entities', LayerEntityController::class, ['only' => ['store','index','show', 'destroy', 'update']]);
-Route::resource('images-output', ImagesOuputController::class, ['except' => 'index']);
+Route::resource('default_selections', DefaultSelectionsController::class, ['only' => ['store','index','show', 'destroy', 'update']]);
+Route::resource('images-output', ImagesOuputController::class);
 
 
 Route::resource('background_image', BackgroundImageController::class, ['only' => ['update', 'show']]);
