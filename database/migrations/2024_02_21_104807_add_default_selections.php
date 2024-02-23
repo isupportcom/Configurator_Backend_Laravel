@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('layer_entities', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->json('cat_cons'); // Storing an array of integers as a JSON column
-            $table->unsignedBigInteger('unique_layer_id');
-            $table->string('image');
+        Schema::create('default_selections', function (Blueprint $table) {
+         
+            $table->id();
+            $table->string('mainSelected'); // Storing an array of integers as a JSON column
+            $table->json('subSelected');
+            $table->unsignedBigInteger('finalProductId');
             $table->timestamps();
 
             // You may need to add a foreign key constraint for unique_layer_id if it references another table
-            $table->foreign('unique_layer_id')->references('id')->on('layers');
-        });
+            $table->foreign('finalProductId')->references('id')->on('final_products');
+      
+    });
     }
 
     /**
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layer_entities');
+        Schema::dropIfExists('default_selections');
     }
 };
