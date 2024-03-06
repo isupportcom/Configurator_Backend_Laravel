@@ -83,7 +83,7 @@ class DefaultSelectionsController extends ApiController
         return response()->json(['data' => $DefaultSelection], 200);
     }
 
-    /**
+    /**             
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

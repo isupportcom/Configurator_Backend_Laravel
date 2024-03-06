@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\BackgrounImageUpdated;
 use App\Events\FinalProductCreated;
 use App\Events\LayerCreated;
 use App\Events\LayerUpdated;
 use App\Listeners\CreateFinalProductLayers;
 use App\Listeners\CreateImageOutput;
+use App\Listeners\UpdateDominantColorListener;
 use App\Listeners\UpdateImageOutput;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,7 +25,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-
         ],
         FinalProductCreated::class => [
             CreateFinalProductLayers::class
@@ -33,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LayerUpdated::class => [
             UpdateImageOutput::class
+        ],
+        BackgrounImageUpdated::class =>[
+            UpdateDominantColorListener::class
         ]
     ];
 

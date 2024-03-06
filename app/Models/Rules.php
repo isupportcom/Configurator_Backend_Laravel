@@ -15,6 +15,13 @@ class Rules extends Model
         'idslc',
     ];
 
+    public function toArray()
+    {
+        $array = parent::toArray();
+        $array['rcnd'] = $this->rcnd;
+        return $array;
+    }
+
     public function rcnd()
     {
         return $this->hasMany(RulesCnd::class, 'idr', 'id');

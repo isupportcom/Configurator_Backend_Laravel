@@ -111,7 +111,6 @@ class FinalProductController extends ApiController
 
 
         $finalProduct->save();
-        sleep(3);
         return $this->showOne($finalProduct);
     }
 

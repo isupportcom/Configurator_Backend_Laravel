@@ -29,7 +29,7 @@ class BackgroundImageController extends ApiController
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
 
-            $oldPath = public_path('iamge') . '/' . $backgroundImage->image;
+            $oldPath = public_path('image') . '/' . $backgroundImage->image;
             if (File::exists($oldPath)) {
                 File::delete($oldPath);
             }
