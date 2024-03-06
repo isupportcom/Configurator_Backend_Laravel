@@ -34,7 +34,7 @@ class PlaceChoicesController extends ApiController
         $placeChoices = PlaceChoices::skip($skipAmount)
             ->take($limit)
             ->where('card_place_id', $request->input('id'))
-            ->get(['id', 'card_place_id', 'image', 'name', 'layer_id']); // Include layer_id in the select
+            ->get(['id', 'card_place_id', 'image', 'name']); // Include layer_id in the select
         return $this->showAll($placeChoices);
     }
 
@@ -68,8 +68,7 @@ class PlaceChoicesController extends ApiController
         $placeChoice = new PlaceChoices([
             'card_place_id' => $request->input('card_place_id'),
             'image' => $imageName,
-            'name' => $request->input('name'),
-            'layer_id' => $request->input('layer_id') // Add this line
+            'name' => $request->input('name')
         ]);
 
 
@@ -103,21 +102,6 @@ class PlaceChoicesController extends ApiController
         if ($request->has('name')) {
             $placeChoice->name = $request->input('name');
         }
-
-        if ($request->has('layer_id')) {
-            $layerId = $request->input('layer_id');
-            $previousPlaceChoice = PlaceChoices::where('layer_id', $layerId)
-                ->where('id', '!=', $placeChoice->id)
-                ->first();
-
-            if (!empty($previousPlaceChoice)) {
-                $previousPlaceChoice->layer_id = null;
-                $previousPlaceChoice->save();
-            }
-
-            $placeChoice->layer_id = $request->input('layer_id');
-        }
-
         // anastasia apo metron tax 6989117339
         // spacewest
         $placeChoice->save();

@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasColumn('layer_images', 'unique_layer_id')) {
             Schema::table('layer_images', function (Blueprint $table) {
                 $table->unsignedBigInteger('unique_layer_id')->nullable()->after('layer_id');
-                $table->foreign('unique_layer_id')->references('id')->on('layers'); // Adjust the table name if needed
+                $table->foreign('unique_layer_id')->references('id')->on('layers')->onDelete('cascade'); // Adjust the table name if needed
             });
         }
     }

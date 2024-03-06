@@ -29,7 +29,8 @@ public function index(Request $request)
     $layers = Layer::where('final_product_layer_id', $finalProductLayerId)->get();
 
     // Return the filtered layers as a JSON response
-    return response()->json(['data' => $layers]);
+ 
+    return $this->showAll($layers);
 }
 
 
@@ -57,9 +58,24 @@ public function index(Request $request)
                     $uniqueLayerId = $this->generateUniqueLayerId(); // Now generates a UUID for each new layer
                     $final_product_layer->layers()->create(['unique_layer_id' => $uniqueLayerId]);
                 }
-            }
+            }else if ($requestedLayerCount < $currentLayerCount){
+                // Calculate how many layers need to be deleted
+                $layersToDeleteCount = $currentLayerCount - $requestedLayerCount;
+                        
+                // Fetch the latest layers to be deleted
+                $layersToDelete = $final_product_layer->layers()
+                                        ->orderBy('created_at', 'desc')
+                                        ->limit($layersToDeleteCount)
+                                        ->get();
+                
+                // Delete the fetched layers
+                foreach ($layersToDelete as $layer) {
+                    $layer->delete();
+                }
+                }
             // Optionally, handle reducing the number of layers if $requestedLayerCount < $currentLayerCount
-        
+            $final_product_layer->layers = $requestedLayerCount;
+            $final_product_layer->save();
             return $this->showOne($final_product_layer->load('layers'));
         }
         

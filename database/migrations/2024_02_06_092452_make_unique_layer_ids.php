@@ -16,13 +16,13 @@ return new class extends Migration
             $table->bigInteger('final_product_layer_id')->unsigned();
 
 
-            $table->foreign('final_product_layer_id')->references('id')->on('final_product_layers');
+            $table->foreign('final_product_layer_id')->references('id')->on('final_product_layers')->onDelete('cascade');
             $table->uuid('unique_layer_id')->unique();
             $table->timestamps();
         });
         
     }
-
+ 
     /**
      * Reverse the migrations.
      */

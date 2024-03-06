@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             // You may need to add a foreign key constraint for unique_layer_id if it references another table
-            $table->foreign('finalProductId')->references('id')->on('final_products');
+            $table->foreign('finalProductId')->references('id')->on('final_products')->onDelete('cascade');;
       
     });
     }

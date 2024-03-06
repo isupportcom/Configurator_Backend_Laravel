@@ -13,8 +13,6 @@ class PlaceChoices extends Model
         'card_place_id',
         'image',
         'name',
-        "layer_id",
-        'layer_image'
     ];
 
 
