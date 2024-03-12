@@ -61,8 +61,7 @@ class LayerEntityController extends ApiController
     public function store(Request $request)
     {
         $request->validate([
-            'cat_cons' => 'required|array',
-            'cat_cons.*' => 'integer|exists:place_choices,id', 
+            'cat_cons' => 'array',
             'unique_layer_id' => 'required|integer|exists:layers,id',
             'image' => 'required | string'
 

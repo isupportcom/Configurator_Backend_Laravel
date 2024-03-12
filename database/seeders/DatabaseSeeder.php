@@ -22,22 +22,22 @@ class DatabaseSeeder extends Seeder
         // ProductsCard::factory(10)->create();
         // CardsPlace::factory(10)->create();
         // PlaceChoices::factory(10)->create();
-        // User::factory(1)->create();
+        User::factory(1)->create();
 
-        $colorNames = [
-            'primary',
-            'primary_light',
-            'primary_dark',
-            'secondary',
-            'secondary_light',
-            'secondary_dark',
-        ];
+        // $colorNames = [
+        //     'primary',
+        //     'primary_light',
+        //     'primary_dark',
+        //     'secondary',
+        //     'secondary_light',
+        //     'secondary_dark',
+        // ];
 
-        foreach ($colorNames as $colorName) {
-            Color::factory()->namedColor($colorName)->create([
-                'color' => fake()->hexColor,
-            ]);
-        }
+        // foreach ($colorNames as $colorName) {
+        //     Color::factory()->namedColor($colorName)->create([
+        //         'color' => fake()->hexColor,
+        //     ]);
+        // }
         
     }
 }
