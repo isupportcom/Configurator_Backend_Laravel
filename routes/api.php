@@ -24,6 +24,7 @@ use App\Http\Controllers\ImagesOuput\ImagesOuputController;
 use App\Http\Controllers\LayerEntity\LayerEntityController;
 use App\Http\Controllers\LayerImages\LayerImagesController;
 use App\Http\Controllers\DefaultSelections\DefaultSelectionsController;
+use App\Http\Controllers\Materials\MaterialsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +48,7 @@ Route::resource("products-card", ProductsCardController::class, ['only' => ['ind
 Route::resource("card-place", CardsPlaceController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 Route::resource("card-place.layer_images",CardsPlaceLayerImage::class,['only'=>['index']]);
 Route::resource("place-choices", PlaceChoicesController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
-
+Route::resource("materials", MaterialsController::class, ['only' => ['index', 'store', 'update', 'destroy', 'show']]);
 Route::resource('icons', IconsController::class, ['only' => 'index']);
 
 Route::resource('rules', RulesController::class, ['only' => ['store', 'show', 'destroy', 'index']]);
